@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
+  	<title>Twiddler</title>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <script>
-
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
-
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
-
-      });
-
+    <script>    
+    	var $body = $('body');
+  		$body.html('');
+  		var index = streams.home.length - 1;
+    	while (index >= 0) {
+     		var tweet = streams.home[index]; // one tweet
+      		var $tweet = $('<div></div>'); // a new division element
+      		$tweet.text('@' + tweet.user + ': ' + tweet.message); // adds text to $tweet division (@username: tweet)
+      		$tweet.appendTo($body);
+      		index -= 1;
+    	}
     </script>
   </body>
 </html>

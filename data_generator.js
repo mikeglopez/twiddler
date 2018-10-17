@@ -11,7 +11,22 @@ streams.users.shawndrost = [];
 streams.users.sharksforcheap = [];
 streams.users.mracus = [];
 streams.users.douglascalhoun = [];
-window.users = Object.keys(streams.users);
+window.users = Object.keys(streams.users); // Gets an Array of streams.users property names (usernames strings)
+
+var refresh = function() { 
+  var $body = $('body');
+  $body.html('');
+  var index = streams.home.length - 1;
+    while (index >= 0) {
+      var tweet = streams.home[index]; // one tweet
+      var $tweet = $('<div></div>'); // a new division element
+      $tweet.text('@' + tweet.user + ': ' + tweet.message); // adds text to $tweet division (@username: tweet)
+      $tweet.appendTo($body);
+      index -= 1;
+    }
+  }
+
+$(document).ready(refresh());
 
 // utility function for adding tweets to our data structures
 var addTweet = function(newTweet){
@@ -52,7 +67,8 @@ for(var i = 0; i < 10; i++){
 
 var scheduleNextTweet = function(){
   generateRandomTweet();
-  setTimeout(scheduleNextTweet, Math.random() * 1500);
+  setTimeout(scheduleNextTweet, Math.random() * 10000);
+  refresh();
 };
 scheduleNextTweet();
 
@@ -67,3 +83,10 @@ var writeTweet = function(message){
   tweet.message = message;
   addTweet(tweet);
 };
+
+
+
+
+
+
+
