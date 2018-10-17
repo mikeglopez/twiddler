@@ -20,7 +20,8 @@ var refresh = function() {
     while (index >= 0) {
       var tweet = streams.home[index]; // one tweet
       var $tweet = $('<div></div>'); // a new division element
-      $tweet.text('@' + tweet.user + ': ' + tweet.message); // adds text to $tweet division (@username: tweet)
+      var timeAgo = moment(tweet.created_at).fromNow();
+      $tweet.text('@' + tweet.user + ' · ' + timeAgo + ': ' + tweet.message); // adds text to $tweet division (@username: tweet)
       $tweet.appendTo($body);
       index -= 1;
     }
@@ -67,7 +68,7 @@ for(var i = 0; i < 10; i++){
 
 var scheduleNextTweet = function(){
   generateRandomTweet();
-  setTimeout(scheduleNextTweet, Math.random() * 10000);
+  setTimeout(scheduleNextTweet, Math.random() * 30000);
   refresh();
 };
 scheduleNextTweet();
