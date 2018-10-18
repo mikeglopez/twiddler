@@ -1,0 +1,69 @@
+body{
+	font-family: Verdana, Arial, sans-serif;
+	color: #485150;
+	background-color: #E6FFF9;
+}
+
+.logo {
+	font-family: "Century Gothic", Verdana, Arial, sans-serif;
+	color: #00CC99;
+	letter-spacing: -5px;
+	font-size: 3em;
+}
+
+.navIcon {
+	filter: grayscale(1);
+}
+
+
+nav {
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #819892;
+	position: fixed;
+	width: 100%;
+	height: 64px;
+	z-index: 10;
+	margin: -10px;
+}
+
+ul {
+
+  	margin-bottom: 30px auto;
+  	padding: 0 20px;
+  	margin-top: -40px;
+}
+
+li {
+  	color: #00CC99;
+  	display: inline-block;
+  	width: auto;
+  	padding: 0 20px;
+}
+
+.navIcon:hover {
+	filter: grayscale(0);
+}
+
+.tweets,
+.user {
+	background-color: #FFFFFF;
+	width: 700px;
+	margin: 0 auto;
+	position: relative;
+	top: 64px;
+}
+
+.tweets a {
+	font-weight: bold;
+}
+
+.tweeter {
+	border-top: 1px solid #D1E0DD;
+	padding: 20px 0 0 20px;
+	font-weight: bold;
+}
+
+.tweet {
+	padding: 0 20px 20px;
+	border-bottom: 1px solid #D1E0DD;
+}

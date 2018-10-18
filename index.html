@@ -9,18 +9,40 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
+  	<nav>
+  		<ul>
+  			<li>
+	  			<h1 class="logo">Twiddler</h1>
+  			</li>
+  			<li>
+  				<a title="Home" href="index.html"><img width="30px" height="30px" src="images/home.png"></a>
+  			</li>
+  			<li>
+  				<a title="Inbox" href="#"><img width="30px" height="30px" class="navIcon" src="images/mail.png"></a>
+  			</li>
+  		</ul>
+  	</nav>
     <script>    
-    	var $body = $('body');
-  		$body.html('');
-  		var index = streams.home.length - 1;
-    	while (index >= 0) {
-     		var tweet = streams.home[index]; // one tweet
-      		var $tweet = $('<div></div>'); // a new division element
-      		var timeAgo = moment(tweet.created_at).fromNow();
-      		$tweet.text('@' + tweet.user + ' · ' + timeAgo + ': ' + tweet.message); // adds text to $tweet division (@username: tweet)
-      		$tweet.appendTo($body);
+    	$(document).ready(function() {
+			var $tweets = $('.tweets');
+      var user = document.getElementsByClassName('user')[0];
+  			var index = streams.home.length - 1;
+    		while (index >= 0) {
+     			var tweet = streams.home[index]; // one tweet
+     			var timeAgo = moment(tweet.created_at).fromNow();
+     			var userLine = '@' + tweet.user + ' · ' + timeAgo;
+     			var $tweeter = $('<div class="tweeter" onClick="userTweet()"></div>')
+      		var $tweet = $('<div class="tweet"></div>'); // a new division element
+      		$tweeter.text(userLine);
+      		$tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
+      		$tweeter.appendTo($tweets);
+      		$tweet.appendTo($tweets);
       		index -= 1;
-    	}
+          user.style.display = "none"
+    		}
+    	});
     </script>
+    <div class="tweets"></div>
+    <div class="user">Test</div>
   </body>
 </html>

@@ -14,16 +14,20 @@ streams.users.douglascalhoun = [];
 window.users = Object.keys(streams.users); // Gets an Array of streams.users property names (usernames strings)
 
 var refresh = function() { 
-  var $body = $('body');
-  $body.html('');
+  var $tweets = $('.tweets');
+  $tweets.html('');
   var index = streams.home.length - 1;
     while (index >= 0) {
       var tweet = streams.home[index]; // one tweet
-      var $tweet = $('<div></div>'); // a new division element
-      var timeAgo = moment(tweet.created_at).fromNow();
-      $tweet.text('@' + tweet.user + ' · ' + timeAgo + ': ' + tweet.message); // adds text to $tweet division (@username: tweet)
-      $tweet.appendTo($body);
-      index -= 1;
+          var timeAgo = moment(tweet.created_at).fromNow();
+          var userLine = '@' + tweet.user + ' · ' + timeAgo;
+          var $tweeter = $('<div class="tweeter" onClick="userTweet()"></div>')
+          var $tweet = $('<div class="tweet"></div>'); // a new division element
+          $tweeter.text(userLine);
+          $tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
+          $tweeter.appendTo($tweets);
+          $tweet.appendTo($tweets);
+          index -= 1;
     }
   }
 
@@ -85,7 +89,30 @@ var writeTweet = function(message){
   addTweet(tweet);
 };
 
-
+var userTweet = function() {
+  // var $body = $('body');
+  // var $tweets = $('.tweets');
+  var tweets = document.getElementsByClassName('tweets')[0];
+  var user = document.getElementsByClassName('user')[0];
+  tweets.style.display = "none";
+  user.style.display = "inline"
+  // $tweets.html('');
+  // var index = streams.home.length - 1;
+  //   while (index >= 0) {
+  //     var tweet = streams.home[index]; // one tweet
+  //         var timeAgo = moment(tweet.created_at).fromNow();
+  //         var userLine = '@' + tweet.user + ' · ' + timeAgo;
+  //         var $tweeter = $('<div class="tweeter" onClick="userTweet()"></div>')
+  //         var $tweet = $('<div class="tweet"></div>'); // a new division element
+  //         $tweeter.text(userLine);
+  //         $tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
+  //         $tweeter.appendTo($tweets);
+  //         $tweet.appendTo($tweets);
+  //         index -= 1;
+  //   }
+  // console.log(streams.users.shawndrost);
+  //streams.users.toUpperCase();
+}
 
 
 
