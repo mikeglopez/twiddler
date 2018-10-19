@@ -5,14 +5,13 @@
     <script src="jquery.js"></script>
     <script src="moment.js"></script>
     <script src="data_generator.js"></script>
-    
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
   	<nav>
   		<ul>
   			<li>
-	  			<h1 class="logo">Twiddler</h1>
+	  			<a href="index.html"><h1 class="logo">Twiddler</h1></a>
   			</li>
   			<li>
   				<a title="Home" href="index.html"><img width="30px" height="30px" src="images/home.png"></a>
@@ -25,24 +24,26 @@
     <script>    
     	$(document).ready(function() {
 			var $tweets = $('.tweets');
-      var user = document.getElementsByClassName('user')[0];
+      var user = document.getElementsByClassName('user')[0]; // user tweets page
   			var index = streams.home.length - 1;
     		while (index >= 0) {
      			var tweet = streams.home[index]; // one tweet
      			var timeAgo = moment(tweet.created_at).fromNow();
      			var userLine = '@' + tweet.user + ' · ' + timeAgo;
-     			var $tweeter = $('<div class="tweeter" onClick="userTweet()"></div>')
+          var userName = tweet.user;
+     			var $tweeter = $('<div class="tweeter" onClick="userTweet(' + "'" + streams.home[index].user + "'" + ')"></div>');
       		var $tweet = $('<div class="tweet"></div>'); // a new division element
       		$tweeter.text(userLine);
       		$tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
       		$tweeter.appendTo($tweets);
       		$tweet.appendTo($tweets);
       		index -= 1;
-          user.style.display = "none"
+          user.style.display = "none";
     		}
     	});
     </script>
     <div class="tweets"></div>
-    <div class="user">Test</div>
+    <div class="user"></div>
   </body>
 </html>
+

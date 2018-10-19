@@ -5,7 +5,7 @@
 
 // set up data structures
 window.streams = {};
-streams.home = [];
+streams.home = []; // an array of all tweets from all the users you're following
 streams.users = {};
 streams.users.shawndrost = [];
 streams.users.sharksforcheap = [];
@@ -21,7 +21,8 @@ var refresh = function() {
       var tweet = streams.home[index]; // one tweet
           var timeAgo = moment(tweet.created_at).fromNow();
           var userLine = '@' + tweet.user + ' · ' + timeAgo;
-          var $tweeter = $('<div class="tweeter" onClick="userTweet()"></div>')
+          var userName = tweet.user;
+          var $tweeter = $('<div class="tweeter" onClick="userTweet(' + "'" + streams.home[index].user + "'" + ')"></div>');
           var $tweet = $('<div class="tweet"></div>'); // a new division element
           $tweeter.text(userLine);
           $tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
@@ -89,29 +90,30 @@ var writeTweet = function(message){
   addTweet(tweet);
 };
 
-var userTweet = function() {
-  // var $body = $('body');
-  // var $tweets = $('.tweets');
+var userTweet = function(myUser) {
   var tweets = document.getElementsByClassName('tweets')[0];
+  tweets.style.display = "none"; // hide Twiddler feed
+
   var user = document.getElementsByClassName('user')[0];
-  tweets.style.display = "none";
-  user.style.display = "inline"
-  // $tweets.html('');
-  // var index = streams.home.length - 1;
-  //   while (index >= 0) {
-  //     var tweet = streams.home[index]; // one tweet
-  //         var timeAgo = moment(tweet.created_at).fromNow();
-  //         var userLine = '@' + tweet.user + ' · ' + timeAgo;
-  //         var $tweeter = $('<div class="tweeter" onClick="userTweet()"></div>')
-  //         var $tweet = $('<div class="tweet"></div>'); // a new division element
-  //         $tweeter.text(userLine);
-  //         $tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
-  //         $tweeter.appendTo($tweets);
-  //         $tweet.appendTo($tweets);
-  //         index -= 1;
-  //   }
-  // console.log(streams.users.shawndrost);
-  //streams.users.toUpperCase();
+  user.style.display = "block" // display user feed
+  
+  var $user = $('.user'); // user tweets div
+  // $user.html(''); 
+  var index = streams.users[myUser].length - 1;
+    while (index >= 0) {
+      var userTweet = streams.users[myUser][index]; // one tweet object
+      console.log(userTweet)
+      console.log(userTweet.user);
+          var timeAgo = moment(userTweet.created_at).fromNow();
+          var userLine = '@' + userTweet.user + ' · ' + timeAgo;
+          var $userTweeter = $('<div class="tweeter"></div>')
+          var $userTweet = $('<div class="tweet"></div>'); // a new division element
+          $userTweeter.text(userLine);
+          $userTweet.text(userTweet.message); // adds text to $tweet division (@username: tweet)
+          $userTweeter.appendTo($user);
+          $userTweet.appendTo($user);
+          index -= 1;
+    }
 }
 
 
