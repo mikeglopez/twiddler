@@ -11,16 +11,19 @@
   	<nav>
   		<ul>
   			<li>
-	  			<a href="index.html"><h1 class="logo">Twiddler</h1></a>
+	  			<a onClick="displayTweets(false)" href="javascript:void(0)"><h1 class="logo">Twiddler</h1></a>
   			</li>
   			<li>
-  				<a title="Home" href="index.html"><img width="30px" height="30px" src="images/home.png"></a>
+  				<a title="Home" onClick="displayTweets(false)" href="javascript:void(0)"><img width="30px" height="30px" src="images/home.png"></a>
   			</li>
   			<li>
   				<a title="Inbox" href="#"><img width="30px" height="30px" class="navIcon" src="images/mail.png"></a>
   			</li>
   		</ul>
   	</nav>
+    <aside>
+      
+    </aside>
     <script>    
     	$(document).ready(function() {
 			var $tweets = $('.tweets');
@@ -36,14 +39,12 @@
       		$tweeter.text(userLine);
       		$tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
       		$tweeter.appendTo($tweets);
-      		$tweet.appendTo($tweets);
+          $tweet.appendTo($tweets);
       		index -= 1;
-          user.style.display = "none";
     		}
     	});
     </script>
     <div class="tweets"></div>
-    <div class="user"></div>
   </body>
 </html>
 

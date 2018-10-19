@@ -4,6 +4,9 @@ body{
 	background-color: #E6FFF9;
 }
 
+aside {
+	float: left;
+}
 
 /* ------ NAVIGATION ------ */
 
@@ -54,8 +57,7 @@ li {
 
 /* --- END OF NAVIGATION --- */
 
-.tweets,
-.user {
+.tweets {
 	background-color: #FFFFFF;
 	width: 700px;
 	margin: 0 auto;

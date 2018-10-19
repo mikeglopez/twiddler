@@ -12,27 +12,35 @@ streams.users.sharksforcheap = [];
 streams.users.mracus = [];
 streams.users.douglascalhoun = [];
 window.users = Object.keys(streams.users); // Gets an Array of streams.users property names (usernames strings)
+window.currUser = undefined;
+window.checkIndividual = false;
 
-var refresh = function() { 
+var displayTweets = function(isIndividual, user) { 
+  checkIndividual = isIndividual ? true : false;
+  var val = isIndividual ? streams.users[user] : streams.home;
   var $tweets = $('.tweets');
   $tweets.html('');
-  var index = streams.home.length - 1;
+  var index = val.length - 1;
     while (index >= 0) {
-      var tweet = streams.home[index]; // one tweet
-          var timeAgo = moment(tweet.created_at).fromNow();
-          var userLine = '@' + tweet.user + ' · ' + timeAgo;
-          var userName = tweet.user;
-          var $tweeter = $('<div class="tweeter" onClick="userTweet(' + "'" + streams.home[index].user + "'" + ')"></div>');
-          var $tweet = $('<div class="tweet"></div>'); // a new division element
-          $tweeter.text(userLine);
-          $tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
-          $tweeter.appendTo($tweets);
-          $tweet.appendTo($tweets);
-          index -= 1;
+      var tweet = val[index]; // one tweet
+      var timeAgo = moment(tweet.created_at).fromNow();
+      var userLine = '@' + tweet.user + ' · ' + timeAgo;
+      var userName = tweet.user;
+      var $tweeter = $('<div class="tweeter" onClick="userTweet(' + "'" + streams.home[index].user + "'" + ')"></div>');
+      var $tweet = $('<div class="tweet"></div>'); // a new division element
+      $tweeter.text(userLine);
+      $tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
+      $tweeter.appendTo($tweets);
+      $tweet.appendTo($tweets);
+      index -= 1;
     }
   }
 
-$(document).ready(refresh());
+var userTweet = function(myUser) {
+  checkIndividual = true;
+  currUser = myUser;
+  displayTweets(checkIndividual, currUser);
+}
 
 // utility function for adding tweets to our data structures
 var addTweet = function(newTweet){
@@ -73,8 +81,8 @@ for(var i = 0; i < 10; i++){
 
 var scheduleNextTweet = function(){
   generateRandomTweet();
-  setTimeout(scheduleNextTweet, Math.random() * 30000);
-  refresh();
+  setTimeout(scheduleNextTweet, Math.random() * 9000);
+  displayTweets(checkIndividual, currUser);
 };
 scheduleNextTweet();
 
@@ -89,34 +97,3 @@ var writeTweet = function(message){
   tweet.message = message;
   addTweet(tweet);
 };
-
-var userTweet = function(myUser) {
-  var tweets = document.getElementsByClassName('tweets')[0];
-  tweets.style.display = "none"; // hide Twiddler feed
-
-  var user = document.getElementsByClassName('user')[0];
-  user.style.display = "block" // display user feed
-  
-  var $user = $('.user'); // user tweets div
-  // $user.html(''); 
-  var index = streams.users[myUser].length - 1;
-    while (index >= 0) {
-      var userTweet = streams.users[myUser][index]; // one tweet object
-      console.log(userTweet)
-      console.log(userTweet.user);
-          var timeAgo = moment(userTweet.created_at).fromNow();
-          var userLine = '@' + userTweet.user + ' · ' + timeAgo;
-          var $userTweeter = $('<div class="tweeter"></div>')
-          var $userTweet = $('<div class="tweet"></div>'); // a new division element
-          $userTweeter.text(userLine);
-          $userTweet.text(userTweet.message); // adds text to $tweet division (@username: tweet)
-          $userTweeter.appendTo($user);
-          $userTweet.appendTo($user);
-          index -= 1;
-    }
-}
-
-
-
-
-
