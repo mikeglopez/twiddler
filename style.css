@@ -2,13 +2,9 @@ body{
 	font-family: Verdana, Arial, sans-serif;
 	color: #485150;
 	background-color: #E6FFF9;
+	min-width: 900px;
 }
 
-aside {
-	float: left;
-}
-
-/* ------ NAVIGATION ------ */
 
 .logo {
 	font-family: "Century Gothic", Verdana, Arial, sans-serif;
@@ -55,14 +51,45 @@ li {
 	filter: grayscale(0);
 }
 
-/* --- END OF NAVIGATION --- */
+.tweets,
+aside {
+	display: block;
+	background-color: #FFFFFF;
+	position: relative;
+	top: 64px;
+	padding: 0 10px;
+}
 
 .tweets {
 	background-color: #FFFFFF;
-	width: 700px;
-	margin: 0 auto;
-	position: relative;
-	top: 64px;
+	width: 600px;
+	margin-left: 350px;
+	margin-right: 10px;
+	border: 1px solid #D1E0DD;
+}
+
+aside {
+	float: left;
+	width: 300px;
+	min-width: 200px;
+	margin-left: 10px;
+	border: 1px solid #D1E0DD;
+}
+
+.trendContainer {
+	color: #00CC99;
+	font-weight: bold;
+}
+
+.trendCount {
+	font-size: .75em;
+	padding-bottom: 20px;
+}
+
+article {
+	visibility: hidden;
+	width: 400px;
+	float: right;
 }
 
 .tweets a {
@@ -70,7 +97,6 @@ li {
 }
 
 .tweeter {
-	border-top: 1px solid #D1E0DD;
 	padding: 20px 0 0 20px;
 	font-weight: bold;
 }

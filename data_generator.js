@@ -5,13 +5,14 @@
 
 // set up data structures
 window.streams = {};
-streams.home = []; // an array of all tweets from all the users you're following
+streams.home = [];
 streams.users = {};
 streams.users.shawndrost = [];
 streams.users.sharksforcheap = [];
 streams.users.mracus = [];
 streams.users.douglascalhoun = [];
-window.users = Object.keys(streams.users); // Gets an Array of streams.users property names (usernames strings)
+window.tweetTags = {};
+window.users = Object.keys(streams.users);
 window.currUser = undefined;
 window.checkIndividual = false;
 
@@ -21,25 +22,49 @@ var displayTweets = function(isIndividual, user) {
   var $tweets = $('.tweets');
   $tweets.html('');
   var index = val.length - 1;
-    while (index >= 0) {
-      var tweet = val[index]; // one tweet
-      var timeAgo = moment(tweet.created_at).fromNow();
-      var userLine = '@' + tweet.user + ' · ' + timeAgo;
-      var userName = tweet.user;
-      var $tweeter = $('<div class="tweeter" onClick="userTweet(' + "'" + streams.home[index].user + "'" + ')"></div>');
-      var $tweet = $('<div class="tweet"></div>'); // a new division element
-      $tweeter.text(userLine);
-      $tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
-      $tweeter.appendTo($tweets);
-      $tweet.appendTo($tweets);
-      index -= 1;
-    }
+  while (index >= 0) {
+    var tweet = val[index];
+    var timeAgo = moment(tweet.created_at).fromNow();
+    var userLine = '@' + tweet.user + ' · ' + timeAgo;
+    var userName = tweet.user;
+    var $tweeter = $('<div class="tweeter" onClick="userTweet(' + "'" + streams.home[index].user + "'" + ')"></div>');
+    var $tweet = $('<div class="tweet"></div>');
+    $tweeter.text(userLine);
+    $tweet.text(tweet.message);
+    $tweeter.appendTo($tweets);
+    $tweet.appendTo($tweets);
+    index -= 1;
   }
+}
 
 var userTweet = function(myUser) {
   checkIndividual = true;
   currUser = myUser;
   displayTweets(checkIndividual, currUser);
+}
+
+var trending = function() {
+  var $trends = $('.trends');
+  $trends.html('');
+
+  var index = hashTags.length - 1;
+  while (index >= 0) {
+    var trendTag = hashTags[index];
+    if (tweetTags[trendTag] === undefined) {
+      console.log('meow');
+      var countText = '1000 Tweets';
+    }
+    else {
+      var countText = tweetTags[trendTag] + '000 Tweets';
+    }
+    var $trend = $('<div class="trendContainer"></div>');
+    var $count = $('<div class="trendCount"></div>')
+    $trend.text(trendTag);
+    $count.text(countText);
+    $trend.appendTo($trends);
+    $count.appendTo($trends);
+    index -= 1;
+  }
 }
 
 // utility function for adding tweets to our data structures
@@ -62,8 +87,19 @@ var objects = ['my', 'your', 'the', 'a', 'my', 'an entire', 'this', 'that', 'the
 var nouns = ['cat', 'koolaid', 'system', 'city', 'worm', 'cloud', 'potato', 'money', 'way of life', 'belief system', 'security system', 'bad decision', 'future', 'life', 'pony', 'mind'];
 var tags = ['#techlife', '#burningman', '#sf', 'but only i know how', 'for real', '#sxsw', '#ballin', '#omg', '#yolo', '#magic', '', '', '', ''];
 
+var hashTags = tags.filter(tag => tag.length > 0);
+
 var randomMessage = function(){
-  return [randomElement(opening), randomElement(verbs), randomElement(objects), randomElement(nouns), randomElement(tags)].join(' ');
+  var randTag = randomElement(tags);
+  if (randTag.length > 0) {
+    if (tweetTags[randTag] === undefined) {
+      tweetTags[randTag] = 1;
+    }
+    else {
+      tweetTags[randTag]++;
+    }
+  }
+  return [randomElement(opening), randomElement(verbs), randomElement(objects), randomElement(nouns), randTag].join(' ');
 };
 
 // generate random tweets on a random schedule
@@ -81,8 +117,9 @@ for(var i = 0; i < 10; i++){
 
 var scheduleNextTweet = function(){
   generateRandomTweet();
-  setTimeout(scheduleNextTweet, Math.random() * 9000);
+  setTimeout(scheduleNextTweet, Math.random() * 10000);
   displayTweets(checkIndividual, currUser);
+  trending();
 };
 scheduleNextTweet();
 

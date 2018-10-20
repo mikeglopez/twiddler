@@ -22,29 +22,35 @@
   		</ul>
   	</nav>
     <aside>
-      
+      <h3>Trending</h3>
+      <div class="trends">
+        <script>
+          $(document).ready(trending());
+        </script>
+      </div>
     </aside>
     <script>    
     	$(document).ready(function() {
 			var $tweets = $('.tweets');
-      var user = document.getElementsByClassName('user')[0]; // user tweets page
-  			var index = streams.home.length - 1;
-    		while (index >= 0) {
-     			var tweet = streams.home[index]; // one tweet
-     			var timeAgo = moment(tweet.created_at).fromNow();
-     			var userLine = '@' + tweet.user + ' · ' + timeAgo;
-          var userName = tweet.user;
-     			var $tweeter = $('<div class="tweeter" onClick="userTweet(' + "'" + streams.home[index].user + "'" + ')"></div>');
-      		var $tweet = $('<div class="tweet"></div>'); // a new division element
-      		$tweeter.text(userLine);
-      		$tweet.text(tweet.message); // adds text to $tweet division (@username: tweet)
-      		$tweeter.appendTo($tweets);
-          $tweet.appendTo($tweets);
-      		index -= 1;
-    		}
-    	});
+      var user = document.getElementsByClassName('user')[0];
+  		var index = streams.home.length - 1;
+    	while (index >= 0) {
+     		var tweet = streams.home[index];
+     		var timeAgo = moment(tweet.created_at).fromNow();
+     		var userLine = '@' + tweet.user + ' · ' + timeAgo;
+        var userName = tweet.user;
+     		var $tweeter = $('<div class="tweeter" onClick="userTweet(' + "'" + streams.home[index].user + "'" + ')"></div>');
+      	var $tweet = $('<div class="tweet"></div>');
+      	$tweeter.text(userLine);
+      	$tweet.text(tweet.message);
+      	$tweeter.appendTo($tweets);
+        $tweet.appendTo($tweets);
+      	index -= 1;
+    	}
+    });
     </script>
     <div class="tweets"></div>
+    <article></article>
   </body>
 </html>
 
