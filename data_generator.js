@@ -51,7 +51,6 @@ var trending = function() {
   while (index >= 0) {
     var trendTag = hashTags[index];
     if (tweetTags[trendTag] === undefined) {
-      console.log('meow');
       var countText = '1000 Tweets';
     }
     else {
